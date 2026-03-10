@@ -1,18 +1,20 @@
 from qiskit import QuantumCircuit
 from qiskit.primitives import StatevectorSampler
 
-classical_2_bit = input("Please enter 2 bit classical binary to transmit: ")
-while(classical_2_bit != ""):
-    qc = QuantumCircuit(2)
-    qc.h(0)
-    qc.cx(0,1)
-    if(classical_2_bit == "00"):
+classical_4_bit = input("Please enter 4 bit classical binary to transmit: ")
+while(classical_4_bit != ""):
+    bits = 0b001
+    qc = QuantumCircuit(4)
+    for (i in bits.bit_length()):
+        qc.h(0)
+        qc.cx(0,1)
+    if(classical_4_bit == "00"):
         qc.id(0)
-    elif(classical_2_bit == "01"):
+    elif(classical_4_bit == "01"):
         qc.x(0)
-    elif(classical_2_bit == "10"):
+    elif(classical_4_bit == "10"):
         qc.z(0)
-    elif(classical_2_bit == "11"):
+    elif(classical_4_bit == "11"):
         qc.z(0)
         qc.x(0)
     print("Transmission Circuit:")
@@ -30,4 +32,4 @@ while(classical_2_bit != ""):
     result = sampler.run([qc], shots=1024).result()
     print(f"Measurement of qubit output: {result[0].data.meas.get_counts()}")
 
-    classical_2_bit = input("Enter Another 2 bit value or nothing to exit: ")
+    classical_4_bit = input("Enter Another 2 bit value or nothing to exit: ")
